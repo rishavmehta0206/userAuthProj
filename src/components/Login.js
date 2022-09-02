@@ -1,15 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import styled from "styled-components";
 import Navbar from "./Navbar";
-import { Navigate, useNavigate } from "react-router-dom";
-import {useDispatch} from "react-redux"
+import { Navigate, useNavigate, useLocation, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { LOGINUSER } from "../redux/authActions";
 
 const Login = () => {
+  // const reducerData = useSelector(state=>state.auth)
+  // console.log(reducerData.user)
+
   const dispatch = useDispatch();
-  
+
   const userRef = useRef();
   const errRef = useRef();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = useMemo(() => {
+    // location.state ? return location.state?.from?.pathname : return "/";
+    if (location.state) {
+      return location.state?.from?.pathname;
+    } else {
+      return "/";
+    }
+  }, [location.state?.from?.pathname]);
+  console.log(from);
 
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
@@ -26,7 +41,12 @@ const Login = () => {
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
-    LOGINUSER(dispatch, { user, pwd });
+    const loginUserDetails = {
+      username: user,
+      password: pwd,
+    };
+    LOGINUSER(dispatch, loginUserDetails);
+    // navigate(from, { replace: true });
   };
   return (
     <div>

@@ -48,7 +48,12 @@ const Register = () => {
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
-    REGISTERUSER(dispatch, { user, pwd });
+    let userDetails = {
+      username: user,
+      email: "rr@gmail.com",
+      password: pwd,
+    };
+    REGISTERUSER(dispatch, userDetails);
     navigate("/login");
   };
 

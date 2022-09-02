@@ -3,23 +3,23 @@ import { createSlice } from "@reduxjs/toolkit";
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null,
+    // user: JSON.parse(localStorage.getItem("user")) || {},
+    user:{},
     loading: false,
     error: false,
     errorMsg: "",
   },
   reducers: {
     RegisterPending: (state) => {},
-    RegisterSuccess: (state, { payload }) => {
-      console.log(payload);
-    },
+    RegisterSuccess: (state, { payload }) => {},
     RegisterFail: (state) => {},
     LoginPending: (state) => {
       state.loading = true;
     },
     LoginSuccess: (state, { payload }) => {
-      console.log(payload);
-      state.user = payload.user;
+      console.log(payload)
+      state.user = payload
+      // localStorage.setItem("user", JSON.stringify(payload));
       state.loading = false;
       state.error = false;
       state.errorMsg = "";
@@ -27,6 +27,10 @@ export const authSlice = createSlice({
     LoginFail: (state) => {
       state.loading = false;
       state.error = true;
+    },
+    Logout: (state) => {
+      localStorage.removeItem("user");
+      state.user = null;
     },
   },
 });
@@ -38,5 +42,6 @@ export const {
   LoginPending,
   LoginFail,
   LoginSuccess,
+  Logout,
 } = authSlice.actions;
 export default authSlice.reducer;

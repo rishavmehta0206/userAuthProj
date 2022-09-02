@@ -1,18 +1,48 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Logout } from "../redux/authSlice";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const logout = () => {
+    dispatch(Logout());
+    navigate("/login");
+  };
   return (
     <Container>
       <Wrapper>
         <Logo>Abcd.</Logo>
         {user ? (
-          <LinkContainer>
-            <Links>Welcome {user.username}</Links>
-          </LinkContainer>
+          <>
+            <LinkContainer
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+            >
+              <Links
+                style={{ borderBottom: "1px solid black" }}
+              >{`Welcome ${user?.username}`}</Links>
+              <button
+                onClick={logout}
+                style={{
+                  marginLeft: "20px",
+                  color: "white",
+                  backgroundColor: "black",
+                  cursor: "pointer",
+                  marginTop: "10px",
+                }}
+              >
+                LogOut
+              </button>
+            </LinkContainer>
+          </>
         ) : (
           <LinkContainer>
             <Links>
