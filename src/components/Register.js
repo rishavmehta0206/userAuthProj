@@ -18,6 +18,8 @@ const Register = () => {
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
 
+  const [email, setEmail] = useState("");
+
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
@@ -50,7 +52,7 @@ const Register = () => {
     event.preventDefault();
     let userDetails = {
       username: user,
-      email: "rr@gmail.com",
+      email: email,
       password: pwd,
     };
     REGISTERUSER(dispatch, userDetails);
@@ -99,6 +101,14 @@ const Register = () => {
               ) : (
                 ""
               )}
+            </FormBodyFields>
+            <FormBodyFields>
+              <span>Email.</span>
+              <Input
+                placeholder="enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </FormBodyFields>
             <FormBodyFields>
               <span>

@@ -26,9 +26,10 @@ const Navbar = () => {
                 alignItems: "flex-start",
               }}
             >
-              <Links
-                style={{ borderBottom: "1px solid black" }}
-              >{`Welcome ${user?.username}`}</Links>
+              <Links style={{ borderBottom: "1px solid black" }}>{`Welcome ${
+                user?.username.slice(0, 1).toUpperCase() +
+                user?.username.slice(1)
+              }`}</Links>
               <button
                 onClick={logout}
                 style={{
@@ -37,6 +38,7 @@ const Navbar = () => {
                   backgroundColor: "black",
                   cursor: "pointer",
                   marginTop: "10px",
+                  padding: "5px",
                 }}
               >
                 LogOut
@@ -67,7 +69,6 @@ const Navbar = () => {
 export default Navbar;
 
 const Container = styled.div`
-  height: 80px;
   width: 100%;
   top: 0;
   position: sticky;
